@@ -37,6 +37,7 @@
     "load-grunt-tasks": "^3.4.0"
   },
   "dependencies": {
-    "stack-trace": "0.0.9"
+    "stack-trace": "0.0.9",
+    "underscore": "^1.8.3"
   }
 }
