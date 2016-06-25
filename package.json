@@ -1,6 +1,6 @@
 {
   "name": "jasmine-slow-reporter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Reporter for Jasmine to report on slow specs.",
   "main": "lib/jasmine-slow-reporter.js",
   "scripts": {
