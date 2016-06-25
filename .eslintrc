@@ -6,5 +6,8 @@
   "rules": {
     "semi": 2,
     "no-console": 0
+  },
+  "globals": {
+    "jasmine": true,
   }
 }

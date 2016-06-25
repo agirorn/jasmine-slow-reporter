@@ -10,7 +10,8 @@ describe('jasmine-slow-reporter', function() {
   describe('one slow running spec', function() {
     beforeEach(function() {
       jasmineSuite(function() {
-        runSpec('spec full name', 0, 251);
+        runSpec('spec full name', 0, 251,
+                'spec/unit/first.spec.js', 498);
       });
     });
 
@@ -18,6 +19,7 @@ describe('jasmine-slow-reporter', function() {
       expect(logged).toEqual([
         '',
         'Slow spec: "spec full name"',
+        'spec/unit/first.spec.js:498',
         'Duration: 251ms'
       ].join('\n')+'\n');
     });
@@ -26,8 +28,10 @@ describe('jasmine-slow-reporter', function() {
   describe('two slow running spec', function() {
     beforeEach(function() {
       jasmineSuite(function() {
-        runSpec('spec one name', 0, 251);
-        runSpec('spec two name', 0, 251);
+        runSpec('spec one name', 0, 251,
+                'spec/unit/first.spec.js', 300);
+        runSpec('spec two name', 0, 251, 
+                'spec/unit/second.spec.js', 498);
       });
     });
 
@@ -35,9 +39,11 @@ describe('jasmine-slow-reporter', function() {
       expect(logged).toEqual([
         '',
         'Slow spec: "spec one name"',
+        'spec/unit/first.spec.js:300',
         'Duration: 251ms',
         '',
         'Slow spec: "spec two name"',
+        'spec/unit/second.spec.js:498',
         'Duration: 251ms'
       ].join('\n')+'\n');
     });
@@ -47,8 +53,10 @@ describe('jasmine-slow-reporter', function() {
     beforeEach(function() {
       jasmineSlowReporter.threshold = 200;
       jasmineSuite(function() {
-        runSpec('spec one name', 0, 151);
-        runSpec('spec two name', 0, 251);
+        runSpec('spec one name', 0, 151,
+                'spec/unit/first.spec.js', 300);
+        runSpec('spec two name', 0, 251,
+                'spec/unit/second.spec.js', 300);
       });
     });
 
@@ -56,6 +64,7 @@ describe('jasmine-slow-reporter', function() {
       expect(logged).toEqual([
         '',
         'Slow spec: "spec two name"',
+        'spec/unit/second.spec.js:300',
         'Duration: 251ms'
       ].join('\n')+'\n');
     });
@@ -84,13 +93,16 @@ describe('jasmine-slow-reporter', function() {
     jasmineSlowReporter.jasmineDone();
   }
 
-  function runSpec(fullName, start, end) {
+  function runSpec(fullName, start, end, filename, line) {
     date.and.callFake( dateWithTime(start) );
     jasmineSlowReporter.specStarted();
     date.and.callFake( dateWithTime(end) );
     jasmineSlowReporter.specDone({
-      fullName: fullName
+      fullName: fullName,
+      _jasmineSlowReporter: {
+        filename: filename,
+        line: line
+      }
     });
   }
-
 });

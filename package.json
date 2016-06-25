@@ -35,5 +35,8 @@
     "grunt-jasmine-nodejs": "^1.4.3",
     "jasmine": "^2.4.1",
     "load-grunt-tasks": "^3.4.0"
+  },
+  "dependencies": {
+    "stack-trace": "0.0.9"
   }
 }
