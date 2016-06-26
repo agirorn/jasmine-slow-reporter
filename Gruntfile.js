@@ -6,14 +6,40 @@ module.exports = function(grunt) {
       files: [
         '.eslintrc',
         'spec/.eslintrc',
-        'gruntfile.js',
-        'lib/**/*.js',
+        'Gruntfile.js',
+        'src/**/*.js',
         'spec/**/*.js'
       ],
       tasks: [
+        'clear', 'clean',
+        'clear', 'babel:dev',
         'clear', 'eslint',
         'clear', 'test'
       ]
+    },
+
+    clean: ['lib'],
+
+    babel: {
+      dist: {
+        files: [{
+          expand: true,
+          src: '**/*',
+          cwd: 'src',
+          dest: 'lib'
+        }]
+      },
+      dev: {
+        options: {
+          sourceMap: true
+        },
+        files: [{
+          expand: true,
+          src: '**/*',
+          cwd: 'src',
+          dest: 'lib'
+        }]
+      }
     },
 
     eslint: {
@@ -51,6 +77,7 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('dist', ['clear', 'babel:dist']);
   grunt.registerTask('test', ['jasmine_nodejs']);
   grunt.registerTask('dev', ['watch']);
   grunt.registerTask('default', ['test', 'eslint']);
