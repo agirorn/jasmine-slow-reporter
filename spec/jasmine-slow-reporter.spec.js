@@ -1,42 +1,44 @@
-describe('jasmine-slow-reporter', function() {
-  var jasmineSlowReporter = require('../lib/jasmine-slow-reporter');
-  var logged, date;
+const jasmineSlowReporter = require('../lib/jasmine-slow-reporter');
 
-  beforeEach(function(){
+describe('jasmine-slow-reporter', () => {
+  let logged;
+  let date;
+
+  beforeEach(() => {
     date = spyOn(global, 'Date');
     grabConsoleLog();
   });
 
-  describe('one slow running spec', function() {
-    beforeEach(function() {
-      jasmineSuite(function() {
+  describe('one slow running spec', () => {
+    beforeEach(() => {
+      jasmineSuite(() => {
         runSpec('spec full name', 0, 251,
                 'spec/unit/first.spec.js', 498);
       });
     });
 
-    it('is loged to the console', function() {
-      expect(logged).toEqual([
+    it('is loged to the console', () => {
+      expect(logged).toEqual([ // eslint-disable-line prefer-template
         '',
         'Slow spec: "spec full name"',
         'spec/unit/first.spec.js:498',
-        'Duration: 251ms'
-      ].join('\n')+'\n');
+        'Duration: 251ms',
+      ].join('\n') + '\n');
     });
   });
 
-  describe('two slow running spec', function() {
-    beforeEach(function() {
-      jasmineSuite(function() {
+  describe('two slow running spec', () => {
+    beforeEach(() => {
+      jasmineSuite(() => {
         runSpec('spec one name', 0, 251,
                 'spec/unit/first.spec.js', 300);
-        runSpec('spec two name', 0, 251, 
+        runSpec('spec two name', 0, 251,
                 'spec/unit/second.spec.js', 498);
       });
     });
 
-    it('is loged to the console', function() {
-      expect(logged).toEqual([
+    it('is loged to the console', () => {
+      expect(logged).toEqual([ // eslint-disable-line prefer-template
         '',
         'Slow spec: "spec one name"',
         'spec/unit/first.spec.js:300',
@@ -44,15 +46,15 @@ describe('jasmine-slow-reporter', function() {
         '',
         'Slow spec: "spec two name"',
         'spec/unit/second.spec.js:498',
-        'Duration: 251ms'
-      ].join('\n')+'\n');
+        'Duration: 251ms',
+      ].join('\n') + '\n');
     });
   });
 
-  describe('lower threshold', function() {
-    beforeEach(function() {
+  describe('lower threshold', () => {
+    beforeEach(() => {
       jasmineSlowReporter.threshold = 200;
-      jasmineSuite(function() {
+      jasmineSuite(() => {
         runSpec('spec one name', 0, 151,
                 'spec/unit/first.spec.js', 300);
         runSpec('spec two name', 0, 251,
@@ -60,30 +62,26 @@ describe('jasmine-slow-reporter', function() {
       });
     });
 
-    it('is loged to the console', function() {
-      expect(logged).toEqual([
+    it('is loged to the console', () => {
+      expect(logged).toEqual([ // eslint-disable-line prefer-template
         '',
         'Slow spec: "spec two name"',
         'spec/unit/second.spec.js:300',
-        'Duration: 251ms'
-      ].join('\n')+'\n');
+        'Duration: 251ms',
+      ].join('\n') + '\n');
     });
   });
 
   function dateWithTime(time) {
-    return function() {
-      return {
-        getTime: function() {
-          return time;
-        }
-      };
-    };
+    return () => ({
+      getTime: () => time,
+    });
   }
 
   function grabConsoleLog() {
     logged = '';
-    spyOn(console, 'log').and.callFake(function(message) {
-      logged = logged + message + '\n';
+    spyOn(console, 'log').and.callFake((message) => {
+      logged = `${logged}${message}\n`;
     });
   }
 
@@ -94,15 +92,15 @@ describe('jasmine-slow-reporter', function() {
   }
 
   function runSpec(fullName, start, end, filename, line) {
-    date.and.callFake( dateWithTime(start) );
+    date.and.callFake(dateWithTime(start));
     jasmineSlowReporter.specStarted();
-    date.and.callFake( dateWithTime(end) );
+    date.and.callFake(dateWithTime(end));
     jasmineSlowReporter.specDone({
-      fullName: fullName,
+      fullName,
       _jasmineSlowReporter: {
-        filename: filename,
-        line: line
-      }
+        filename,
+        line,
+      },
     });
   }
 });

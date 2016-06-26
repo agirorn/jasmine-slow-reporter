@@ -1,11 +1,11 @@
-describe('jasmine-slow-reporter', function() {
-  var findSpecFile = require('../lib/find-spec-file');
-  var stackTrace = require('stack-trace');
+const findSpecFile = require('../lib/find-spec-file');
+const stackTrace = require('stack-trace');
 
-  it('finds spec file in stack trace', function() {
+describe('jasmine-slow-reporter', () => {
+  it('finds spec file in stack trace', () => {
     expect(findSpecFile(stackTrace.get())).toEqual({
       filename: __filename,
-      line: 6
+      line: 8,
     });
   });
 });

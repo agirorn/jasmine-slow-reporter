@@ -1,9 +1,9 @@
-var first = require('underscore').first;
-var filter = require('underscore').filter;
-var map = require('underscore').map;
+const first = require('underscore').first;
+const filter = require('underscore').filter;
+const map = require('underscore').map;
 
-function findSpecFile(trace) {
-  trace = map(trace, filenameAndLineNumber);
+function findSpecFile(stackTrace) {
+  const trace = map(stackTrace, filenameAndLineNumber);
   return first(filter(trace, isSpec));
 }
 
@@ -14,7 +14,7 @@ function isSpec(line) {
 function filenameAndLineNumber(line) {
   return {
     filename: line.getFileName(),
-    line: line.getLineNumber()
+    line: line.getLineNumber(),
   };
 }
 

@@ -1,29 +1,33 @@
-describe('itFactory', function() {
-  var itFactory = require('../lib/it-factory');
-  var result;
+const itFactory = require('../lib/it-factory');
 
-  beforeEach(function() {
-    var newIt = itFactory(orginalIt);
+describe('itFactory', () => {
+  let result;
+
+  beforeEach(() => {
+    const newIt = itFactory(orginalIt);
     result = newIt().result;
   });
 
-  describe('_jasmineSlowReporter', function() {
-    it('should be defined', function() {
+  describe('_jasmineSlowReporter', () => {
+    it('should be defined', () => {
+      // eslint-disable-next-line no-underscore-dangle
       expect(result._jasmineSlowReporter).toBeDefined();
     });
 
-    it('should have currents spec filename', function() {
+    it('should have currents spec filename', () => {
+      // eslint-disable-next-line no-underscore-dangle
       expect(result._jasmineSlowReporter.filename).toBe(__filename);
     });
 
-    it('should have the linumber from where it was called', function() {
-      expect(result._jasmineSlowReporter.line).toBe(7);
+    it('should have the linumber from where it was called', () => {
+      // eslint-disable-next-line no-underscore-dangle
+      expect(result._jasmineSlowReporter.line).toBe(10);
     });
   });
 
-  function orginalIt  () {
+  function orginalIt() {
     return {
-      result: {}
+      result: {},
     };
   }
 });

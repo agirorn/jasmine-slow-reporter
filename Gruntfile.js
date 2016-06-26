@@ -1,5 +1,5 @@
-module.exports = function(grunt) {
-  require('load-grunt-tasks')(grunt);
+module.exports = function configure(grunt) {
+  require('load-grunt-tasks')(grunt); // eslint-disable-line global-require
 
   grunt.initConfig({
     watch: {
@@ -8,14 +8,14 @@ module.exports = function(grunt) {
         'spec/.eslintrc',
         'Gruntfile.js',
         'src/**/*.js',
-        'spec/**/*.js'
+        'spec/**/*.js',
       ],
       tasks: [
         'clear', 'clean',
         'clear', 'babel:dev',
+        'clear', 'test',
         'clear', 'eslint',
-        'clear', 'test'
-      ]
+      ],
     },
 
     clean: ['lib'],
@@ -26,34 +26,34 @@ module.exports = function(grunt) {
           expand: true,
           src: '**/*',
           cwd: 'src',
-          dest: 'lib'
-        }]
+          dest: 'lib',
+        }],
       },
       dev: {
         options: {
-          sourceMap: true
+          sourceMap: true,
         },
         files: [{
           expand: true,
           src: '**/*',
           cwd: 'src',
-          dest: 'lib'
-        }]
-      }
+          dest: 'lib',
+        }],
+      },
     },
 
     eslint: {
       target: [
         'Gruntfile.js',
-        'lib/*.js',
-        'spec/*.js'
-      ]
+        'src/*.js',
+        'spec/*.js',
+      ],
     },
 
     jasmine_nodejs: {
       options: {
-        specNameSuffix: "spec.js",
-        helperNameSuffix: "helper.js",
+        specNameSuffix: 'spec.js',
+        helperNameSuffix: 'helper.js',
         useHelpers: true,
         stopOnFailure: true,
         reporters: {
@@ -61,20 +61,20 @@ module.exports = function(grunt) {
             colors: true,
             cleanStack: 1,
             verbosity: 4,
-            listStyle: "indent",
-            activity: false
-          }
-        }
+            listStyle: 'indent',
+            activity: false,
+          },
+        },
       },
       your_target: {
         specs: [
-          "spec/**/*.js"
+          'spec/**/*.js',
         ],
         helpers: [
-          "spec/helpers/**"
-        ]
-      }
-    }
+          'spec/helpers/**',
+        ],
+      },
+    },
   });
 
   grunt.registerTask('dist', ['clear', 'babel:dist']);
