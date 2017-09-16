@@ -21,7 +21,7 @@ describe('itFactory', () => {
 
     it('should have the linumber from where it was called', () => {
       // eslint-disable-next-line no-underscore-dangle
-      expect(result._jasmineSlowReporter.line).toBe(10);
+      expect(result._jasmineSlowReporter.line).toBe(8);
     });
   });
 
