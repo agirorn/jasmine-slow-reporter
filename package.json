@@ -30,7 +30,6 @@
     "dev": "yardman"
   },
   "dependencies": {
-    "stack-trace": "0.0.10",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
