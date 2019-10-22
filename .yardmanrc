@@ -1,5 +1,5 @@
 package.json
--exec sort-package-json
+-x sort-package-json
 lib
 spec
-'clear && npm run ci --silent'
+-x 'clear && npm run ci --silent'

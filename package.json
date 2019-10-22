@@ -16,30 +16,30 @@
   "bugs": {
     "url": "https://github.com/agirorn/jasmine-slow-reporter/issues"
   },
-  "license": "ISC",
-  "author": "Ægir Örn Símonarson <agirorn@gmail.com>",
-  "main": "lib/jasmine-slow-reporter.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/agirorn/jasmine-slow-reporter.git"
   },
+  "license": "ISC",
+  "author": "Ægir Örn Símonarson <agirorn@gmail.com>",
+  "main": "lib/jasmine-slow-reporter.js",
   "scripts": {
     "ci": "npm test && npm run lint",
+    "dev": "yardman",
     "lint": "eslint lib spec",
-    "test": "jasmine",
-    "dev": "yardman"
+    "test": "jasmine"
   },
   "dependencies": {
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "eslint": "^2.13.1",
-    "eslint-config-agirorn": "0.0.2",
-    "eslint-config-defaults": "^8.0.2",
-    "jasmine": "^2.4.1",
-    "load-grunt-tasks": "^3.4.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "jasmine": "^3.5.0",
+    "load-grunt-tasks": "^5.1.0",
     "sort-package-json": "^1.7.1",
-    "yardman": "0.0.4"
+    "yardman": "0.0.8"
   },
   "engines": {
     "node": ">=6"

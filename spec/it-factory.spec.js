@@ -3,6 +3,12 @@ const itFactory = require('../lib/it-factory');
 describe('itFactory', () => {
   let result;
 
+  function orginalIt() {
+    return {
+      result: {},
+    };
+  }
+
   beforeEach(() => {
     const newIt = itFactory(orginalIt);
     result = newIt().result;
@@ -21,13 +27,7 @@ describe('itFactory', () => {
 
     it('should have the linumber from where it was called', () => {
       // eslint-disable-next-line no-underscore-dangle
-      expect(result._jasmineSlowReporter.line).toBe(8);
+      expect(result._jasmineSlowReporter.line).toBe(14);
     });
   });
-
-  function orginalIt() {
-    return {
-      result: {},
-    };
-  }
 });
